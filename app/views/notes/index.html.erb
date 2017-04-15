@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>jQuery UI Sortable - Default functionality</title>
+  <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+  <link rel="stylesheet" href="/resources/demos/style.css">
+  <style>
+  #sortable { list-style-type: none; margin: 0; padding: 0; width: 60%; }
+  #sortable li { margin: 0 3px 3px 3px; padding: 0.4em; padding-left: 1.5em; font-size: 1.4em; height: 18px; }
+  #sortable li span { position: absolute; margin-left: -1.3em; }
+  </style>
+  <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+  <script>
+  $( function() {
+    $( "#sortable" ).sortable();
+    $( "#sortable" ).disableSelection();
+  } );
+  </script>
+  <style>
+  #draggable { width: 100px; height: 100px; padding: 0.5em; float: left; margin: 10px 10px 10px 0; }
+  #droppable { width: 150px; height: 150px; padding: 0.5em; float: left; margin: 10px; }
+  </style>
+  <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+  <script>
+  $( function() {
+    $( "#draggable" ).draggable();
+    $( "#droppable" ).droppable({
+      drop: function( event, ui ) {
+        $( this )
+          .addClass( "ui-state-highlight" )
+          .find( "p" )
+            .html( "Dropped!" );
+      }
+    });
+  } );
+  </script>
+</head>
+
+<body>
+<h1>Trello Notes</h1>
+
+<div id="center">
+<%=link_to 'New note', new_note_path%>
+</div>
+
+<div id="dragggable">
+ <div id="sortable" id="center">
+  <% @notes.each do |note| %>
+    <div class="panel panel-default" id="<%= note.id %>">
+      <div class="panel-body">
+        <p id=sticky id=center>
+      <td><%= note.title %></td>
+      <br>
+      <td><%= note.text %></td>
+      <br>
+      <td><%= link_to 'Edit', edit_note_path(note) %></td>
+      <td><%= link_to 'Destroy', note_path(note),
+                method: :delete,
+                data: { confirm: 'Is that a good idea?' } %></td>
+      <br>
+      </p>
+  </div> 
+  </div>
+
+
+   
+
+ 
+</body>
+</html>
+<% end %>
+
